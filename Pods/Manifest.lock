@@ -14,6 +14,14 @@ DEPENDENCIES:
   - iOSDFULibrary (~> 4.0)
   - SWRevealViewController (~> 2.3)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - CorePlot
+    - EVReflection
+    - iOSDFULibrary
+    - SWRevealViewController
+    - Zip
+
 SPEC CHECKSUMS:
   CorePlot: cbe0c6e14220705e32e06a89c7d6a5a908b7d7d8
   EVReflection: 3f6d255f8173ec81a2a6aad81482f253cff82b55
@@ -23,4 +31,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 27aaa69ef26831a42d969fc2d11fc0913adbff1e
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
