@@ -9,6 +9,7 @@
 import UIKit
 import CoreBluetooth
 
+/*
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -28,13 +29,14 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     return rhs < lhs
   }
 }
+*/
 
 
 class NORScannerViewController: UIViewController, CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    let dfuServiceUUIDString  = "00001530-1212-EFDE-1523-785FEABCD123"
-    let ANCSServiceUUIDString = "7905F431-B5CE-4E99-A40F-4B1E122D00D0"
-
+//    let dfuServiceUUIDString  = "00001530-1212-EFDE-1523-785FEABCD123"
+//    let ANCSServiceUUIDString = "7905F431-B5CE-4E99-A40F-4B1E122D00D0"
+    
     //MARK: - ViewController Properties
     var bluetoothManager : CBCentralManager?
     var delegate         : NORScannerDelegate?
@@ -84,9 +86,10 @@ class NORScannerViewController: UIViewController, CBCentralManagerDelegate, UITa
         var retreivedPeripherals : [CBPeripheral]
 
         if filterUUID == nil {
-            let dfuServiceUUID       = CBUUID(string: dfuServiceUUIDString)
-            let ancsServiceUUID      = CBUUID(string: ANCSServiceUUIDString)
-            retreivedPeripherals     = bluetoothManager.retrieveConnectedPeripherals(withServices: [dfuServiceUUID, ancsServiceUUID])
+//            let dfuServiceUUID       = CBUUID(string: dfuServiceUUIDString)
+//            let ancsServiceUUID      = CBUUID(string: ANCSServiceUUIDString)
+            let particleMeshServiceUUID = CBUUID(string: NORServiceIdentifiers.particleMeshServiceUUIDString)
+            retreivedPeripherals     = bluetoothManager.retrieveConnectedPeripherals(withServices: [particleMeshServiceUUID])
         } else {
             retreivedPeripherals     = bluetoothManager.retrieveConnectedPeripherals(withServices: [filterUUID!])
         }
@@ -135,7 +138,7 @@ class NORScannerViewController: UIViewController, CBCentralManagerDelegate, UITa
         
         activityIndicatorView.startAnimating()
         
-        let centralQueue = DispatchQueue(label: "no.nordicsemi.nRFToolBox", attributes: [])
+        let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
         bluetoothManager = CBCentralManager(delegate: self, queue: centralQueue)
     }
     
@@ -187,7 +190,7 @@ class NORScannerViewController: UIViewController, CBCentralManagerDelegate, UITa
     //MARK: - CBCentralManagerDelgate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         guard central.state == .poweredOn else {
-            print("Bluetooth is porewed off")
+            print("Bluetooth is powered off")
             return
         }
 
